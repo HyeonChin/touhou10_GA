@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from PIL import ImageGrab
 
@@ -16,18 +15,3 @@ def capture_area(window_box, area_coordinate):
     image_np = np.array(cap_img)
     
     return image_np
-
-def capture_live_area(window_box, area_coordinate, isShow):
-    cv2.namedWindow("Live Capture")
-    while True:
-        global width
-        global height
-
-        image_np = capture_area(window_box, area_coordinate)
-        if isShow:
-            cv2.imshow("Live Capture", cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB))
-
-        if cv2.waitKey(1) == ord('q'):  # 'q' 키를 누르면 종료
-            cv2.destroyAllWindows()
-            return image_np
-
