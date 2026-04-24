@@ -15,6 +15,10 @@ if window_box:
         text = converter.convert_img_to_text(image_np)
         if text:
             print(f"인식된 텍스트: {text}")
+            if text == "게임오버!":
+                print("!")
+            else:
+                print(f"게임오버! != {repr(text)}")
 
         number = converter.convert_text_to_number(text)
         if number:

@@ -20,7 +20,7 @@ def convert_img_to_text(image_np):
 
     if text:
         # 텍스트 전체 인식
-        text = text.replace(" ", "")
+        text = text.strip().replace(" ", "")
         return text
     else:
         # 텍스트 인식 불가
