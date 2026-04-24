@@ -1,0 +1,4 @@
+import pyautogui
+
+for window in pyautogui.getAllWindows():
+    print(window.title)
