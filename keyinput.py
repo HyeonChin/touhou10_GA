@@ -61,3 +61,5 @@ if __name__ == "__main__":
     window.activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
     run_sequence(start_key_sequence, 0.5)
     run_sequence(play_key_sequence, 0)
+
+# 게임오버 확인 함수 구현
