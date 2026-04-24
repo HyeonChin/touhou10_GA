@@ -1,5 +1,6 @@
 import time
 import pyautogui
+import pydirectinput
 
 KEY_SEQUENCE = [
     'up',       # 위
@@ -30,8 +31,8 @@ def activate_window(title):
         print(f"'{title}' 창 없음")
 
 def press_key(key):
-    pyautogui.keyDown(key)
-    pyautogui.keyUp(key)
+    pydirectinput.keyDown(key)
+    pydirectinput.keyUp(key)
     time.sleep(DELAY_BETWEEN_KEYS)
 
 
