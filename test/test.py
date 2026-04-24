@@ -1,3 +1,16 @@
-import subprocess
+import random
 
-subprocess.run(['C:/Users/system2020/Documents/동방/thcrap/th10 (ko).exe'])
+key_sequence = []
+
+keys = [
+    'up',
+    'down',
+    'left',
+    'right',
+    'x',
+    'z'
+]
+
+for i in range(0, 100):
+    key_sequence.append(random.choice(keys))
+    print(key_sequence[i])
