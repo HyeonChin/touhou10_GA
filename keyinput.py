@@ -43,13 +43,13 @@ def press_key(key, delay):
 
 
 def run_sequence(key_sequence):
-    print("▶ 매크로 시작!")
+    print("<매크로 시작>")
     
     for key in key_sequence:
-        print(f"{key}키 입력!!")
+        print(f"키 입력: {key}")
         press_key(key)
 
-    print("✅ 매크로 완료!")
+    print("<매크로 종료>")
 
 
 if __name__ == "__main__":
