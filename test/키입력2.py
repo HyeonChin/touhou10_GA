@@ -19,22 +19,27 @@ start_key_sequence = [
     'z',
     'z',
     'z',
-    'z',
+    'z'
 ]
 
 play_key_sequence = [
 ]
 
-delay_between_keys = 0.5   # 키 사이 간격 (초) — 빠른 연속입력
+restart_key_sequence = [
+    'z',
+    'up',
+    'up'
+]
+
 window_box = 0
 
 # ==============================
 
 
-def press_key(key):
+def press_key(key, delay):
     pydirectinput.keyDown(key)
     pydirectinput.keyUp(key)
-    time.sleep(delay_between_keys)
+    time.sleep(delay)
 
 
 def run_sequence(key_sequence):
@@ -54,7 +59,5 @@ if __name__ == "__main__":
         play_key_sequence.append(random.choice(keys))
 
     window.activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
-    delay_between_keys = 0.5
-    run_sequence(start_key_sequence)
-    delay_between_keys = 0
-    run_sequence(play_key_sequence)
+    run_sequence(start_key_sequence, 0.5)
+    run_sequence(play_key_sequence, 0)
