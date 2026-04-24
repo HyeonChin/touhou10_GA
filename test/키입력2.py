@@ -1,8 +1,8 @@
 import time
-import pyautogui
 import pydirectinput
 import subprocess
 import random
+import window
 
 # th10 프로그램 실행 후 타이틀 화면 진입하여서 시작
 
@@ -31,17 +31,6 @@ window_box = 0
 # ==============================
 
 
-def activate_window(title):
-    global window_box
-
-    windows = pyautogui.getWindowsWithTitle(title)
-    if windows:
-        windows[0].activate()
-        window_box = windows[0].left, windows[0].top, windows[0].width, windows[0].height
-        print(f"'{title}' 창 있음")
-    else:
-        print(f"'{title}' 창 없음")
-
 def press_key(key):
     pydirectinput.keyDown(key)
     pydirectinput.keyUp(key)
@@ -64,7 +53,7 @@ if __name__ == "__main__":
     for i in range(0, 100):
         play_key_sequence.append(random.choice(keys))
 
-    activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
+    window.activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
     delay_between_keys = 0.5
     run_sequence(start_key_sequence)
     delay_between_keys = 0
