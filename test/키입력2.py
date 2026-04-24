@@ -1,23 +1,24 @@
 import time
 import pyautogui
 import pydirectinput
+import subprocess
+
 
 KEY_SEQUENCE = [
-    'up',       # 위
-    'up',       # 위
-    'left',     # 왼쪽
-    'right',    # 오른쪽
-    'z',        # 샷/결정
-    'x',        # 봄/취소
-    'shift',    # 저속이동
+    'z',
+    'z',
+    'z',
+    'z',
+    'z',
 ]
 
-DELAY_BETWEEN_KEYS = 0.05   # 키 사이 간격 (초) — 빠른 연속입력
+delay_between_keys = 0.5   # 키 사이 간격 (초) — 빠른 연속입력
 REPEAT_COUNT = 1             # 시퀀스 반복 횟수 (0 = 무한반복)
 START_DELAY = 1              # 시작 전 대기 시간 (창 전환용)
 window_box = 0
 
 # ==============================
+
 
 def activate_window(title):
     global window_box
@@ -33,7 +34,7 @@ def activate_window(title):
 def press_key(key):
     pydirectinput.keyDown(key)
     pydirectinput.keyUp(key)
-    time.sleep(DELAY_BETWEEN_KEYS)
+    time.sleep(delay_between_keys)
 
 
 def run_sequence():
@@ -58,8 +59,9 @@ def run_sequence():
 
     print("✅ 매크로 완료!")
 
-activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
-# activate_window("메모장")
 
 if __name__ == "__main__":
+    # subprocess.run(['C:/Users/system2020/Documents/동방/thcrap/th10 (ko).exe'])
+    # time.sleep(10)
+    activate_window("동방풍신록 ~ Mountain of Faith. v1.00a")
     run_sequence()
