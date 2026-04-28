@@ -132,7 +132,7 @@ def load_from_log(filepath, solution_n, sequence_length):
                     play_key_sequence[idx][j] = k
 
     print(f"세대 {last_gen} 복원 완료. 솔루션 {len(matches)}개 로드.")
-    return play_key_sequence, fit, last_gen, matches
+    return play_key_sequence, fit, last_gen, len(matches)
 
 # subprocess.run(['C:/Users/system2020/Documents/동방/thcrap/th10 (ko).exe'])
 # time.sleep(10)
