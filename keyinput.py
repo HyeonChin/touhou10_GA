@@ -132,20 +132,21 @@ def load_from_log(filepath, solution_n, sequence_length):
                     play_key_sequence[idx][j] = k
 
     print(f"세대 {last_gen} 복원 완료. 솔루션 {len(matches)}개 로드.")
-    return play_key_sequence, fit, last_gen
+    return play_key_sequence, fit, last_gen, matches
 
 # subprocess.run(['C:/Users/system2020/Documents/동방/thcrap/th10 (ko).exe'])
 # time.sleep(10)
 solution_n = 20
 sequence_length = 200
 
-loaded_seq, loaded_fit, generation = load_from_log("./log/fitlog0.txt", solution_n, sequence_length)
+loaded_seq, loaded_fit, generation, solution = load_from_log("./log/fitlog0.txt", solution_n, sequence_length)
 
 if loaded_seq is None:
     # 새로 시작
     play_key_sequence = [[None] * sequence_length for _ in range(solution_n)]
     fit = [0.0] * solution_n
     generation = 0
+    solution = 0
     for i in range(solution_n):
         for j in range(sequence_length):
             play_key_sequence[i][j] = random.choice(keys)
@@ -175,7 +176,7 @@ while True:
     # 솔루션 적합도 측정 및 기록
     
     log_text = ""
-    for i in range(solution_n):
+    for i in range(solution, solution_n):
         print(f"솔루션: {i}")
 
         begin = time.time()
