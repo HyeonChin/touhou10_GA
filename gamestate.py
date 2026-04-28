@@ -13,4 +13,6 @@ def isGameOver(window_box):
     result = cv2.matchTemplate(gray, template, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(result)
 
-    return max_val > 0.8  # 유사도 80% 이상이면 게임오버
+    if max_val > 0.5: # 유사도 50% 이상이면 게임오버
+        return
+    

@@ -132,21 +132,22 @@ def load_from_log(filepath, solution_n, sequence_length):
                     play_key_sequence[idx][j] = k
 
     print(f"세대 {last_gen} 복원 완료. 솔루션 {len(matches)}개 로드.")
-    return play_key_sequence, fit, last_gen, len(matches)
+    
+    return play_key_sequence, fit, last_gen + 1
 
 # subprocess.run(['C:/Users/system2020/Documents/동방/thcrap/th10 (ko).exe'])
 # time.sleep(10)
 solution_n = 20
-sequence_length = 200
+sequence_length = 600
 
-loaded_seq, loaded_fit, generation, solution = load_from_log("./log/fitlog0.txt", solution_n, sequence_length)
+file_path = "./log/fitlog0.txt"
+loaded_seq, loaded_fit, generation = load_from_log(file_path, solution_n, sequence_length)
 
 if loaded_seq is None:
     # 새로 시작
     play_key_sequence = [[None] * sequence_length for _ in range(solution_n)]
     fit = [0.0] * solution_n
     generation = 0
-    solution = 0
     for i in range(solution_n):
         for j in range(sequence_length):
             play_key_sequence[i][j] = random.choice(keys)
@@ -167,16 +168,40 @@ for i in range(solution_n):
 
 time.sleep(1)
 
+# 솔루션 선택(순위 기반 선택)
+
 while True:
+    if (generation != 1):
+        select_n = int(solution_n / 4)
+        sorted_fit = sorted(fit, reverse=True)
+
+        next_play_key_sequence = [None] * solution_n
+        for i in range(0, solution_n):
+            next_play_key_sequence[i] = copy.deepcopy(play_key_sequence[fit.index(sorted_fit[i % select_n])])
+        play_key_sequence = next_play_key_sequence
+
+        # 변이
+        for i in range(1, solution_n):
+            start_idx = 0
+            end_idx = 0
+            idx1 = random.randint(0, sequence_length)
+            idx2 = random.randint(0, sequence_length)
+            
+            start_idx = min(idx1, idx2)
+            end_idx = max(idx1, idx2)
+
+            for j in range(start_idx, end_idx):
+                play_key_sequence[i][j] = (random.choice(keys))
+
     print(f"세대: {generation}")
 
-    f = open("./log/fitlog1.txt", 'a')
+    f = open(file_path, 'a')
     f.write(f"[generation_{generation}]\n")
     f.close()
     # 솔루션 적합도 측정 및 기록
     
     log_text = ""
-    for i in range(solution, solution_n):
+    for i in range(0, solution_n):
         print(f"솔루션: {i}")
 
         begin = time.time()
@@ -193,35 +218,13 @@ while True:
             log_text += play_key_sequence[i][j] + "-"
         log_text += ";\n"
 
-        f = open("./log/fitlog0.txt", 'a')
+        f = open(file_path, 'a')
         f.write(log_text)
         f.close
         
         time.sleep(2)
         keyinput_sequence(retry_key_sequence, 1)
-
-    # 솔루션 선택(순위 기반 선택)
     
-    select_n = int(solution_n / 4)
-    sorted_fit = sorted(fit, reverse=True)
-
-    next_play_key_sequence = [None] * solution_n
-    for i in range(0, solution_n):
-        next_play_key_sequence[i] = copy.deepcopy(play_key_sequence[fit.index(sorted_fit[i % select_n])])
-    play_key_sequence = next_play_key_sequence
-
-    # 변이
-    for i in range(1, solution_n):
-        start_idx = 0
-        end_idx = 0
-        idx1 = random.randint(0, sequence_length)
-        idx2 = random.randint(0, sequence_length)
-        
-        start_idx = min(idx1, idx2)
-        end_idx = max(idx1, idx2)
-
-        for j in range(start_idx, end_idx):
-            play_key_sequence[i][j] = (random.choice(keys))
 
     generation += 1
 
